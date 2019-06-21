@@ -1,13 +1,32 @@
 import React from 'react'
+import { connect } from 'react-redux';
 
-export default function AddSmurf() {
+import { addSmurf } from '../actions';
+
+export function AddSmurf(props) {
+  const { addSmurf } = props
+
   const smurfNameRef = React.createRef();
   const smurfAgeRef = React.createRef();
   const smurfHeightRef = React.createRef();
 
+  const onAddSmurf = (event) => {
+    event.preventDefault();
+
+    const smurf = {
+      name: smurfNameRef.current.value,
+      age: smurfAgeRef.current.value,
+      height: smurfHeightRef.current.value,
+    }
+
+    addSmurf(smurf);
+  }
+
   return (
     <div>
-      <form>
+      <form
+        onSubmit={(event) => onAddSmurf(event)}
+      >
         <input
           type="text"
           placeholder="Enter name"
@@ -30,3 +49,5 @@ export default function AddSmurf() {
     </div>
   )
 }
+
+export default connect(null, { addSmurf })(AddSmurf)
