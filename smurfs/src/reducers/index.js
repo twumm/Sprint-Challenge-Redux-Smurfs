@@ -9,7 +9,7 @@ const initialState =  {
   error: null,
 }
 
-export function smurfsReducer(state = initialState, action) {
+export default function smurfsReducer(state = initialState, action) {
   switch(action.type) {
     case (types.GET_SMURFS):
       return {
