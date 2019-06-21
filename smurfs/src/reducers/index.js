@@ -8,6 +8,7 @@ const initialState =  {
   deletingSmurf: false,
   error: null,
   friendToEdit: {},
+  editMode: false,
 }
 
 export default function smurfsReducer(state = initialState, action) {
@@ -57,7 +58,8 @@ export default function smurfsReducer(state = initialState, action) {
     case (types.SET_SMURF_TO_EDIT):
       return {
         ...state,
-        friendToEdit: action.payload
+        friendToEdit: action.payload,
+        editMode: !state.editMode,
       }
     
     default:

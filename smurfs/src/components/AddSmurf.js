@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux';
 
-import { addSmurf } from '../actions';
+import { addSmurf, updateSmurf } from '../actions';
 
-export function AddSmurf({ addSmurf, addingSmurf, updatingSmurf, friendToEdit }) {
+export function AddSmurf({ addSmurf, addingSmurf, updatingSmurf, friendToEdit, editMode, updateSmurf }) {
 
   useEffect(() => {
     smurfNameRef.current.value = friendToEdit.name ? friendToEdit.name : null;
@@ -15,7 +15,7 @@ export function AddSmurf({ addSmurf, addingSmurf, updatingSmurf, friendToEdit })
   let smurfAgeRef = React.createRef();
   let smurfHeightRef = React.createRef();
 
-  const onAddSmurf = (event) => {
+  const onAddOrUpdateSmurf = (event) => {
     event.preventDefault();
 
     const smurf = {
@@ -24,16 +24,19 @@ export function AddSmurf({ addSmurf, addingSmurf, updatingSmurf, friendToEdit })
       height: smurfHeightRef.current.value,
     }
 
-    addSmurf(smurf);
+    !editMode
+    ? addSmurf(smurf)
+    : updateSmurf(friendToEdit.id, smurf)
+    
     smurfNameRef.current.value = '';
     smurfAgeRef.current.value = '';
     smurfHeightRef.current.value = '';
   }
-
+  
   return (
     <div>
       <form
-        onSubmit={(event) => onAddSmurf(event)}
+        onSubmit={(event) => onAddOrUpdateSmurf(event)}
       >
         <input
           type="text"
@@ -46,12 +49,13 @@ export function AddSmurf({ addSmurf, addingSmurf, updatingSmurf, friendToEdit })
           ref={smurfAgeRef}
         />
         <input
-          type="number"
+          type="text"
           placeholder="How tall is this smurf?"
           ref={smurfHeightRef}
         />
         <input
           type="submit"
+          value={editMode ? 'Update' : 'Add'}
         />
       </form>
       { addingSmurf && <p>Adding 1 smurf</p> }
@@ -65,7 +69,8 @@ function mapStateToProps(state) {
     addingSmurf: state.addingSmurf,
     updatingSmurf: state.updatingSmurf,
     friendToEdit: state.friendToEdit,
+    editMode: state.editMode,
   }
 }
 
-export default connect(mapStateToProps, { addSmurf })(AddSmurf)
+export default connect(mapStateToProps, { addSmurf, updateSmurf })(AddSmurf)

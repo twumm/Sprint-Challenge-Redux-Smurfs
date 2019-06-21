@@ -50,13 +50,17 @@ export const removeSmurf = id => dispatch => {
     .finally(() => dispatch(genericAction(DELETING_SMURF, false)))
 }
 
-export const updateSmurf = smurf => dispatch => {
+export const updateSmurf = (id, smurf) => dispatch => {
+  debugger;
   dispatch(genericAction(UPDATING_SMURF, true));
   const { name, age, height } = smurf;
-  axios.put(`${smurfsApiURL}/${smurf.id}`, { name, age, height })
+  axios.put(`${smurfsApiURL}/${id}`, { name, age, height })
     .then(response => dispatch(getSmurfs(response.data)))
     .catch(error => dispatch(genericAction(FAILURE, error)))
-    .finally(() => dispatch(genericAction(UPDATING_SMURF, false)))
+    .finally(() => {
+      dispatch(genericAction(UPDATING_SMURF, false));
+      dispatch(genericAction(SET_SMURF_TO_EDIT, {}));
+    })
 }
 
 export const setSmurfToEdit = smurf => dispatch => {

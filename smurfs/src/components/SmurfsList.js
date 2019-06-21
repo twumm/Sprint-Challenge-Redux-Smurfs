@@ -4,8 +4,7 @@ import { connect } from 'react-redux';
 import { fetchSmurfs, removeSmurf, setSmurfToEdit } from '../actions'
 import Smurf from './Smurf';
 
-export function SmurfsList(props) {
-  const { fetchSmurfs, removeSmurf, smurfs, fetchingSmurfs, deletingSmurfs, setSmurfToEdit } = props;
+export function SmurfsList({ fetchSmurfs, removeSmurf, smurfs, fetchingSmurfs, deletingSmurfs, setSmurfToEdit }) {
 
   useEffect(() => {
     fetchSmurfs();
