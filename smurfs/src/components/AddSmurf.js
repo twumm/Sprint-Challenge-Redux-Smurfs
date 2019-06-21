@@ -1,14 +1,19 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux';
 
 import { addSmurf } from '../actions';
 
-export function AddSmurf(props) {
-  const { addSmurf, addingSmurf, updatingSmurf } = props
+export function AddSmurf({ addSmurf, addingSmurf, updatingSmurf, friendToEdit }) {
 
-  const smurfNameRef = React.createRef();
-  const smurfAgeRef = React.createRef();
-  const smurfHeightRef = React.createRef();
+  useEffect(() => {
+    smurfNameRef.current.value = friendToEdit.name ? friendToEdit.name : null;
+    smurfAgeRef.current.value = friendToEdit.age ? friendToEdit.age : null;
+    smurfHeightRef.current.value = friendToEdit.height ? friendToEdit.height : null;
+  })
+
+  let smurfNameRef = React.createRef();
+  let smurfAgeRef = React.createRef();
+  let smurfHeightRef = React.createRef();
 
   const onAddSmurf = (event) => {
     event.preventDefault();
@@ -59,6 +64,7 @@ function mapStateToProps(state) {
   return {
     addingSmurf: state.addingSmurf,
     updatingSmurf: state.updatingSmurf,
+    friendToEdit: state.friendToEdit,
   }
 }
 

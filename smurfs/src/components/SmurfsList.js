@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux';
 
-import { fetchSmurfs, removeSmurf } from '../actions'
+import { fetchSmurfs, removeSmurf, setSmurfToEdit } from '../actions'
 import Smurf from './Smurf';
 
 export function SmurfsList(props) {
-  const { fetchSmurfs, removeSmurf, smurfs, fetchingSmurfs, deletingSmurfs } = props;
+  const { fetchSmurfs, removeSmurf, smurfs, fetchingSmurfs, deletingSmurfs, setSmurfToEdit } = props;
 
   useEffect(() => {
     fetchSmurfs();
@@ -19,6 +19,7 @@ export function SmurfsList(props) {
             key={smurf.id}
             smurf={smurf}
             removeSmurf={removeSmurf}
+            setSmurfToEdit={setSmurfToEdit}
           />
         ))
       }
@@ -36,4 +37,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps, { fetchSmurfs, removeSmurf })(SmurfsList);
+export default connect(mapStateToProps, { fetchSmurfs, removeSmurf, setSmurfToEdit })(SmurfsList);
