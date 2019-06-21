@@ -5,7 +5,7 @@ import { fetchSmurfs, removeSmurf } from '../actions'
 import Smurf from './Smurf';
 
 export function SmurfsList(props) {
-  const { fetchSmurfs, removeSmurf, smurfs } = props;
+  const { fetchSmurfs, removeSmurf, smurfs, fetchingSmurfs, deletingSmurfs } = props;
 
   useEffect(() => {
     fetchSmurfs();
@@ -22,13 +22,17 @@ export function SmurfsList(props) {
           />
         ))
       }
+      {fetchingSmurfs && <p>Happy smurfs on the way!</p>}
+      {deletingSmurfs && <p>Deleting smurf</p>}
     </div>
   )
 }
 
 function mapStateToProps(state) {
   return {
-    smurfs: state.smurfs
+    smurfs: state.smurfs,
+    fetchingSmurfs: state.fetchingSmurfs,
+    deletingSmurfs: state.deletingSmurfs,
   }
 }
 
