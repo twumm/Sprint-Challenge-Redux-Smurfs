@@ -34,7 +34,8 @@ export const fetchSmurfs = () => dispatch => {
 
 export const addSmurf = (smurf) => dispatch => {
   dispatch(genericAction(ADDING_SMURF, true))
-  axios.post(smurfsApiURL, (smurf.name, smurf.age, smurf.height))
+  const { name, age, height } = smurf;
+  axios.post(smurfsApiURL, { name, age, height })
     .then(response => dispatch(getSmurfs(response.data)))
     .catch(error => dispatch(genericAction(FAILURE, error)))
     .finally(() => dispatch(genericAction(ADDING_SMURF, false)))
