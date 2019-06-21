@@ -23,6 +23,9 @@ export default function AddSmurf() {
           placeholder="How tall is this smurf?"
           ref={smurfHeightRef}
         />
+        <input
+          type="submit"
+        />
       </form>
     </div>
   )
