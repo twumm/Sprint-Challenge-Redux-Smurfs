@@ -41,6 +41,14 @@ export const addSmurf = (smurf) => dispatch => {
     .finally(() => dispatch(genericAction(ADDING_SMURF, false)))
 }
 
+export const removeSmurf = id => dispatch => {
+  dispatch(genericAction(DELETING_SMURF, true))
+  axios.delete(`${smurfsApiURL}/${id}`)
+    .then(response => dispatch(getSmurfs(response.data)))
+    .catch(error => dispatch(genericAction(FAILURE, error)))
+    .finally(() => dispatch(genericAction(DELETING_SMURF, false)))
+}
+
 
 
 /* 
