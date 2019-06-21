@@ -20,6 +20,9 @@ export function AddSmurf(props) {
     }
 
     addSmurf(smurf);
+    smurfNameRef.current.value = '';
+    smurfAgeRef.current.value = '';
+    smurfHeightRef.current.value = '';
   }
 
   return (
