@@ -9,6 +9,7 @@ export const ADDING_SMURF = 'ADDING_SMURF';
 export const UPDATING_SMURF = 'UPDATING_SMURF';
 export const DELETING_SMURF = 'DELETING_SMURF';
 export const FAILURE = 'FAILURE';
+export const SET_SMURF_TO_EDIT = 'SET_SMURF_TO_EDIT';
 
 export const getSmurfs = (smurfs) => {
   return {
@@ -33,7 +34,7 @@ export const fetchSmurfs = () => dispatch => {
 }
 
 export const addSmurf = (smurf) => dispatch => {
-  dispatch(genericAction(ADDING_SMURF, true))
+  dispatch(genericAction(ADDING_SMURF, true));
   const { name, age, height } = smurf;
   axios.post(smurfsApiURL, { name, age, height })
     .then(response => dispatch(getSmurfs(response.data)))
@@ -42,11 +43,24 @@ export const addSmurf = (smurf) => dispatch => {
 }
 
 export const removeSmurf = id => dispatch => {
-  dispatch(genericAction(DELETING_SMURF, true))
+  dispatch(genericAction(DELETING_SMURF, true));
   axios.delete(`${smurfsApiURL}/${id}`)
     .then(response => dispatch(getSmurfs(response.data)))
     .catch(error => dispatch(genericAction(FAILURE, error)))
     .finally(() => dispatch(genericAction(DELETING_SMURF, false)))
+}
+
+export const updateSmurf = smurf => dispatch => {
+  dispatch(genericAction(UPDATING_SMURF, true));
+  const { name, age, height } = smurf;
+  axios.put(`${smurfsApiURL}/${smurf.id}`, { name, age, height })
+    .then(response => dispatch(getSmurfs(response.data)))
+    .catch(error => dispatch(genericAction(FAILURE, error)))
+    .finally(() => dispatch(genericAction(UPDATING_SMURF, false)))
+}
+
+export const setSmurfToEdit = smurf => dispatch => {
+  dispatch(genericAction(SET_SMURF_TO_EDIT, smurf))
 }
 
 
