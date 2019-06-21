@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { addSmurf } from '../actions';
 
 export function AddSmurf(props) {
-  const { addSmurf } = props
+  const { addSmurf, addingSmurf, updatingSmurf } = props
 
   const smurfNameRef = React.createRef();
   const smurfAgeRef = React.createRef();
@@ -46,8 +46,17 @@ export function AddSmurf(props) {
           type="submit"
         />
       </form>
+      { addingSmurf && <p>Adding 1 smurf</p> }
+      { updatingSmurf && <p>Updating 1 smurf</p> }
     </div>
   )
 }
 
-export default connect(null, { addSmurf })(AddSmurf)
+function mapStateToProps(state) {
+  return {
+    addingSmurf: state.addingSmurf,
+    updatingSmurf: state.updatingSmurf,
+  }
+}
+
+export default connect(mapStateToProps, { addSmurf })(AddSmurf)
