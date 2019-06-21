@@ -23,7 +23,7 @@ export default function smurfsReducer(state = initialState, action) {
         smurfs: [ ...state.smurfs, action.payload ],
       }
     
-    case (types.FETCHING_SMURF):
+    case (types.FETCHING_SMURFS):
       return {
         ...state,
         fetchingSmurfs: action.payload
