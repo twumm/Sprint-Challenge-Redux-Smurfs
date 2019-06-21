@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { fetchSmurfs, removeSmurf, setSmurfToEdit } from '../actions'
 import Smurf from './Smurf';
 
-export function SmurfsList({ fetchSmurfs, removeSmurf, smurfs, fetchingSmurfs, deletingSmurfs, setSmurfToEdit }) {
+export function SmurfsList({ fetchSmurfs, removeSmurf, smurfs, fetchingSmurfs, deletingSmurfs, setSmurfToEdit, error }) {
 
   useEffect(() => {
     fetchSmurfs();
@@ -24,6 +24,7 @@ export function SmurfsList({ fetchSmurfs, removeSmurf, smurfs, fetchingSmurfs, d
       }
       {fetchingSmurfs && <p>Happy smurfs on the way!</p>}
       {deletingSmurfs && <p>Deleting smurf</p>}
+      {error && <p>Deleting smurf</p>}
     </div>
   )
 }
@@ -33,6 +34,7 @@ function mapStateToProps(state) {
     smurfs: state.smurfs,
     fetchingSmurfs: state.fetchingSmurfs,
     deletingSmurfs: state.deletingSmurfs,
+    error: state.error,
   }
 }
 

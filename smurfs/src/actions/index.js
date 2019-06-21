@@ -34,6 +34,7 @@ export const fetchSmurfs = () => dispatch => {
 }
 
 export const addSmurf = (smurf) => dispatch => {
+  if (!smurf.name || !smurf.age || !smurf.age) return;
   dispatch(genericAction(ADDING_SMURF, true));
   const { name, age, height } = smurf;
   axios.post(smurfsApiURL, { name, age, height })
@@ -51,7 +52,7 @@ export const removeSmurf = id => dispatch => {
 }
 
 export const updateSmurf = (id, smurf) => dispatch => {
-  debugger;
+  if (!smurf.name || !smurf.age || !smurf.age) return;
   dispatch(genericAction(UPDATING_SMURF, true));
   const { name, age, height } = smurf;
   axios.put(`${smurfsApiURL}/${id}`, { name, age, height })
