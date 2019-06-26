@@ -1,3 +1,72 @@
+import * as types from '../actions';
+
+const initialState =  {
+  smurfs: [],
+  fetchingSmurfs: false,
+  addingSmurf: false,
+  updatingSmurf: false,
+  deletingSmurf: false,
+  error: null,
+  friendToEdit: {},
+  editMode: false,
+}
+
+export default function smurfsReducer(state = initialState, action) {
+  switch(action.type) {
+    case (types.GET_SMURFS):
+      return {
+        ...state,
+        smurfs: action.payload,
+      }
+
+    case (types.ADD_SMURF):
+      return {
+        ...state,
+        smurfs: [ ...state.smurfs, action.payload ],
+      }
+    
+    case (types.FETCHING_SMURFS):
+      return {
+        ...state,
+        fetchingSmurfs: action.payload
+      }
+
+    case (types.ADDING_SMURF):
+      return {
+        ...state,
+        addingSmurf: action.payload
+      }
+
+    case (types.UPDATING_SMURF):
+      return {
+        ...state,
+        updatingSmurf: action.payload
+      }
+
+    case (types.DELETING_SMURF):
+      return {
+        ...state,
+        deletingSmurf: action.payload
+      }
+
+    case (types.FAILURE):
+      return {
+        ...state,
+        error: action.payload
+      }
+
+    case (types.SET_SMURF_TO_EDIT):
+      return {
+        ...state,
+        friendToEdit: action.payload,
+        editMode: !state.editMode,
+      }
+    
+    default:
+      return state;
+  }
+}
+
 /*
   Be sure to import in all of the action types from `../actions`
 */
